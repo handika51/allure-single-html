@@ -225,12 +225,16 @@ const combineAllure = (folder) => {
     }
   }
   console.log('Done');
+  let dir = './combine_output'
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive:true})
+  }
+  
+  fs.writeFileSync(`${dir}${sep}index.html`, soup.toString());
 
-  fs.writeFileSync(`${folder}${sep}complete.html`, soup.toString());
+  console.log(`> Saving result as ${dir}${sep}index.html`);
 
-  console.log(`> Saving result as ${folder}${sep}complete.html`);
-
-  const { size: completeFileSize } = fs.statSync(`${folder}${sep}complete.html`);
+  const { size: completeFileSize } = fs.statSync(`${dir}${sep}index.html`);
   console.log(`Done. Complete file size is: ${completeFileSize} bytes`);
   console.log(`Finised in ${Math.round((performance.now() - startTime) / 1000)}s`)
 };
